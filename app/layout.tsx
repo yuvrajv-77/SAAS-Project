@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque } from "next/font/google";
+import { DM_Sans } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
 
-const bricolage = Bricolage_Grotesque({
-  variable: "--font-bricolage",
+const dmSans =  DM_Sans({
+  variable: "--dm-sans",
   subsets: ["latin"],
+  
 });
 
 export const metadata: Metadata = {
-  title: "Converso",
+  title: "Listener",
   description: "Real-time AI Teaching Platform",
 };
 
@@ -19,7 +21,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${bricolage.variable} antialiased`}>{children}</body>
+      <body className={`${dmSans.className} antialiased`}>
+        <Navbar/>
+        {children}
+        </body>
     </html>
   );
 }
