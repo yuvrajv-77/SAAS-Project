@@ -2,11 +2,20 @@ import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import {
+  ClerkProvider,
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from '@clerk/nextjs';
+import { dark, shadcn } from "@clerk/themes";
 
-const dmSans =  DM_Sans({
+const dmSans = DM_Sans({
   variable: "--dm-sans",
   subsets: ["latin"],
-  
+
 });
 
 export const metadata: Metadata = {
@@ -20,11 +29,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${dmSans.className} antialiased`}>
-        <Navbar/>
-        {children}
+    <ClerkProvider appearance={{ 
+      baseTheme: shadcn, 
+      variables:{
+        borderRadius: "1rem",
+        
+      }
+      }}>
+      <html lang="en">
+        <body className={`${dmSans.className} antialiased `}>
+          <Navbar />
+          {children}
         </body>
-    </html>
+      </html>
+    </ClerkProvider>
   );
-}
+} 
