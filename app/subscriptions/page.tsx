@@ -1,8 +1,12 @@
+import { PricingTable } from '@clerk/nextjs'
 import React from 'react'
 
 const Subscriptions = () => {
   return (
-    <div>Subscriptions</div>
+    <main>
+        <h1>Subscriptions</h1>
+         <PricingTable />
+    </main>
   )
 }
 

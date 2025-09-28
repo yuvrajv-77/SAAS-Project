@@ -33,6 +33,7 @@ export default function RootLayout({
       baseTheme: shadcn, 
       variables:{
         borderRadius: "1rem",
+        fontFamily:"var(--dm-sans)",
         
       }
       }}>

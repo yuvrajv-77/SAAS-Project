@@ -24,6 +24,11 @@ const Navbar = () => {
             name: "Learning Companions",
             link: "/companions"
         },
+        {
+            name: "Pricing",
+            link: "/subscriptions"
+        },
+        
 
     ]
     return (
@@ -33,7 +38,7 @@ const Navbar = () => {
                     SaaS
                 </Link>
                 <div className='flex items-center gap-10 '>
-                    <div className='hidden md:flex items-center gap-6'>
+                    <div className='hidden md:flex items-center gap-6 text-sm'>
                         {navItems.map(({ name, link }, i) => (
                             <Link key={i} href={link} className={cn(pathname === link ? "text-primary font-semibold" : "")}>{name}</Link>
                         ))}
