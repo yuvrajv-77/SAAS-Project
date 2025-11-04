@@ -3,6 +3,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect } from 'react'
 import { Input } from './ui/input';
 import { formUrlQuery, removeKeysFromUrlQuery } from '@jsmastery/utils';
+import { SearchIcon } from 'lucide-react';
 
 const SearchInput = () => {
 
@@ -63,6 +64,7 @@ const SearchInput = () => {
             onChange={(e) => setSearchQuery(e.target.value)}
             type="search"
             placeholder="Search..."
+            className='w-75' 
         />
     )
 }
