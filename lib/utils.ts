@@ -1,21 +1,39 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { subjectsColors, /* voices */ } from "@/constants";
+import { subjectsColors, voices  } from "@/constants";
 import { CreateAssistantDTO } from "@vapi-ai/web/dist/api";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
-export const getSubjectColor = (subject: string) => {
-  return subjectsColors[subject as keyof typeof subjectsColors];
+export const getSubjectColor = (subject?: string) => {
+  if (!subject) {
+    // fallback to a default color or first defined color
+    return (subjectsColors as Record<string, string>)["default"] ?? Object.values(subjectsColors)[0] ?? "#000";
+  }
+  const color = (subjectsColors as Record<string, string>)[subject];
+  if (!color) {
+    console.warn(`getSubjectColor: unknown subject "${subject}", falling back to default color.`);
+    return (subjectsColors as Record<string, string>)["default"] ?? Object.values(subjectsColors)[0] ?? "#000";
+  }
+  return color;
 };
-
-export const configureAssistant = (voice: string, style: string) => {
+ 
+export const configureAssistant = (voice?: string, style?: string) => {
+  // pick voice map (fallback to first available)
+  const voiceKey = voice ?? Object.keys(voices)[0];
+  const voiceMap = (voices as Record<string, Record<string, string>>)[voiceKey] ?? Object.values(voices)[0];
+  
+  if (!voiceMap) {
+    console.warn("configureAssistant: voices map is empty, using hardcoded fallback 'sarah'.");
+  }
+  
+  // pick style-specific voice id (fallback to first available or 'sarah')
+  const styleKey = style ?? Object.keys(voiceMap ?? {})[0];
   const voiceId =
-    voices[voice as keyof typeof voices][
-      style as keyof (typeof voices)[keyof typeof voices]
-    ] || "sarah";
-
+    (voiceMap && (voiceMap[styleKey] ?? voiceMap[Object.keys(voiceMap)[0]])) ||
+    "sarah";
+ 
   const vapiAssistant: CreateAssistantDTO = {
     name: "Companion",
     firstMessage:
@@ -54,8 +72,8 @@ export const configureAssistant = (voice: string, style: string) => {
         },
       ],
     },
-    clientMessages: [],
-    serverMessages: [],
+    // clientMessages: [],
+    // serverMessages: [],
   };
   return vapiAssistant;
 };

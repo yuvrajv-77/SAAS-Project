@@ -24,8 +24,8 @@ const CompanionSession = async ({ params }: { params: { id: string } }) => {
   }
 
   return (
-    <main className='container px-5 md:px-10 lg:px-50  mx-auto'>
-      <div className='p-5 border rounded-xl flex gap-2'>
+    <main className='container px-5 md:px-10 lg:px-50  mx-auto h-screen'>
+      <div className='p-5 border rounded-xl flex gap-2 mt-7'>
         <div className='size-14 flex items-center justify-center rounded-sm' style={{ backgroundColor: getSubjectColor(companion.subject) }}>
           <Image src={`/icons/${companion.subject}.svg`} alt={companion.subject} width={25} height={25} className='' />
         </div>
@@ -37,7 +37,7 @@ const CompanionSession = async ({ params }: { params: { id: string } }) => {
           <p className='text-sm'>{companion.topic}</p>
         </div>
         <div>
-          <p>5 minutes</p>
+          <p>{companion.duration} mins</p>
         </div>
       </div>
       <CompanionComponent {...companion} userName={user.firstName!} userImage={user.imageUrl} />

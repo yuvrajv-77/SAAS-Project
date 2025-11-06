@@ -34,7 +34,7 @@ const CompanionCard = ({
             <p className="text-sm text-muted-foreground">Topic: {topic}</p>
             <p className="text-sm text-muted-foreground flex items-center gap-1"><Clock size={16} /> {duration} mins duration</p>
             <Link href={`/companions/${id}`} className="w-full">
-                <Button className="w-full" size={'lg'}>Launch Lesson</Button>
+                <Button className="w-full" size={'lg'}>Launch Session</Button>
             </Link>
         </article>
     )
